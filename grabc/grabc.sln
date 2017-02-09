@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "grabc", "grabc.vcxproj", "{F2EC6F23-1522-42D9-9B94-4DF8F31230F2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pylonc_mock", "..\pylonc_mock\pylonc_mock.vcxproj", "{43CD0F8E-3F2D-49DE-A9DE-1733911C9B1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2EC6F23-1522-42D9-9B94-4DF8F31230F2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F2EC6F23-1522-42D9-9B94-4DF8F31230F2}.Debug|Win32.Build.0 = Debug|Win32
+		{F2EC6F23-1522-42D9-9B94-4DF8F31230F2}.Release|Win32.ActiveCfg = Release|Win32
+		{F2EC6F23-1522-42D9-9B94-4DF8F31230F2}.Release|Win32.Build.0 = Release|Win32
+		{43CD0F8E-3F2D-49DE-A9DE-1733911C9B1E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{43CD0F8E-3F2D-49DE-A9DE-1733911C9B1E}.Debug|Win32.Build.0 = Debug|Win32
+		{43CD0F8E-3F2D-49DE-A9DE-1733911C9B1E}.Release|Win32.ActiveCfg = Release|Win32
+		{43CD0F8E-3F2D-49DE-A9DE-1733911C9B1E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

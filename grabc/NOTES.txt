@@ -1,0 +1,15 @@
+
+; Turn on core dumps for the current user
+ulimit -c unlimited
+
+; Open core dump with GDB
+gdb path/to/the/binary path/to/the/core
+
+TODO
+====
+
++ aramtalanitaskor a kamera elfelejti a beallitasait -> be lehet ugy allitani,
+  hogy ne tegye? Vagy egy mentett user set-et (aminek a neve a settings-ben van) betoltetunk a programmal?
+
++ Tesztprogramot kesziteni, hogy lehessen plc regiszterekbe irni soros vonalon keresztul, egy file irja le az inputot
+

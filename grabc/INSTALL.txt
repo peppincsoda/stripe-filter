@@ -1,0 +1,25 @@
+
+INSTALLATION
+------------
+
+Copy service script to the system directory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$ sudo cp grabc.sh /etc/init.d/grabc
+$ sudo chmod +x /etc/init.d/grabc
+
+Start and test your service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$ sudo service grabc start
+$ sudo service grabc stop
+
+Install service to be run at boot-time
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$ sudo update-rc.d grabc defaults
+
+Turn on core dumps for the user running the service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$ ulimit -c unlimited

@@ -1,0 +1,309 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>grabc - Magyar nyelvű felhasználói dokumentáció</title>
+<style type="text/css">
+pre {
+  background-color : lightgray;
+}
+</style>
+</head>
+
+<body>
+
+<h1>A programról</h1>
+
+<p>A grabc alkalmazás egy kamera képén látható tárgy vastagságát becsüli meg.
+Bármely Basler pylon5 API-val kompatibillis ipari kamerával működik.
+A becslés eredményét megjelenítheti konzolon, vagy átküldheti RS-232 soros vonalon
+Modbus RTU protokollal az adott Modbus eszköznek, amely a fejlesztés során egy Xinje PLC volt.
+Raspberry Pi 2 (Linux) platformra készült, de fut Windows környezetben is (Win7 alatt tesztelve).</p>
+
+<h1>Telepítés Raspberry Pi-re</h1>
+
+<p>A szoftvert forrásból fordítjuk.
+Telepítenünk kell a következőket mielőtt fordítani tudunk:</p>
+
+<ul>
+<li>Basler pylon SDK >= 5</li>
+<li>glib >= 2.40.0</li>
+</ul>
+
+<p>Utána:
+<pre>
+$ make
+</pre>
+
+Ha a fordítás közben nem történt hiba, akkor az aktuális könyvtárban most van egy <code>grabc</code> nevű futtatható fájl.
+</p>
+
+<p>Ahhoz, hogy a program a rendszer indításakor automatikusan elinduljon, szolgáltatásként kell beállítani Linuxon.
+Először ellenőrizzük az elérési útvonalakat a <code>grabc.sh</code> fájlban, hogy oda mutatnak-e, ahova kicsomagoltuk ezt a könyvtárat.
+Szintén ellenőrizzük, hogy a felhasználó akinek a nevében futni fog a szolgáltatás, létezik-e.
+Majd másoljuk a helyére a szkriptet:
+<pre>
+$ sudo cp grabc.sh /etc/init.d/grabc
+$ sudo chmod +x /etc/init.d/grabc
+</pre>
+Ezután hozzáadjuk a szkriptet mint új szolgáltatást a rendszer szolgáltatásaihoz:
+<pre>
+$ sudo update-rc.d grabc defaults
+</pre>
+
+A hibakeresés segítése érdekében kapcsoljuk be a core dump írást az adott felhasználó részére:
+<pre>
+$ ulimit -c unlimited
+</pre>
+
+Ellenőrzésképpen indítsuk el a szolgáltatást:
+<pre>
+$ sudo service grabc start
+</pre>
+
+A program a kimenetét a log-fájlba írja, a log-fájl elérési útvonala a <code>grabc.sh</code>-ban található.
+A log-fájl alapból a program telepítési könyvtárában <code>logs/grabc.log</code> útvonalon található. Megtekintése:
+
+<pre>
+$ tail -f logs/grabc.log
+</pre>
+</p>
+
+<p>A program akkor is fut, ha nincsen elérhető kamera, illetve PLC amihez csatlakozhatna. Ilyenkor szabályos
+időközönként újra keresi a kamerát, illetve a PLC-t.</p>
+
+<h1>Alkalmazott algoritmusok</h1>
+
+<p>A program az alábbi lépéseket végzi el sorban a kép kijelölt tartományában:
+
+<ol>
+<li>Medián szűrés: Nagyfrekvenciás (só-bors) zaj csökkentésére.</li>
+<li>Konvolúció: Tetszőleges kernellel. Általában aluláteresztő szűrőt adunk meg, pl. doboz, vagy Gauss-szűrőt.</li>
+<li>Küszöbölés: Bináris képet állít elő. Minden a küszöb intenzitásnál kisebb vagy egyenlő pixel fekete lesz, a többi fehér.</li>
+<li>Keresés: A bináris képen a tartomány közepén levő vízszintes vonalon keresi a jobb oldalon balra,
+a bal oldalon jobbra (tehát a kép közepe felé) haladva, az első fekete, vagy fehér színű pixelt.
+(A <code>Filter/dark-object</code> paraméter dönti el, hogy melyiket.)</li>
+</ol>
+
+Ideális megvilágítás mellett csupán a küszöbölésre van szükség, a megfelelő küszöböt a hisztogram alapján
+találhatjuk meg.
+</p>
+
+<h1>Beállítás</h1>
+
+<p>Az összes állítható paraméter a <code>settings.ini</code> fájlban található.
+A beállítást jelenleg csak Windows alatt tudjuk elvégezni, mert csak itt jeleníthető meg a kamera képe.
+Ha már minden paraméter megfelelő, akkor majd a <code>settings.ini</code>-t át kell másolnunk a Raspberry-re.
+Futtatás Windows alatt:
+<pre>
+C:\work\grabc> grabc.exe settings.ini
+</pre>
+</p>
+
+<p>A <code>settings.ini</code> fájlt figyeli a program, és minden módosításakor
+automatikusan újraindítja a képfeldolgozást az új paraméterekkel. Ezért nem kell kézzel újraindítani a programot
+minden módosítás után. Ha a <code>settings.ini</code> beolvasásakor hiba történik,
+a program kilép, és a fent leírt módon kézzel kell újraindítani a hiba kijavítása után.
+Ha a beolvasás sikerült de érvénytelen értékek lettek beállítva, a program jelzi a hibát, majd alapértelmezett értékeket
+használ az érvénytelenek helyett. A program állapotáról és minden hibáról a log-fájlból szerezhetünk információt a Raspberry-n,
+beállításkor Windows-on pedig a konzolról.</p>
+</p>
+
+
+<p>A paraméterek és lehetséges értékeik a következők:</p>
+
+<table border="1" cellspacing="0" cellpadding="2">
+<tr>
+  <th>Paramétercsoport</th>
+  <th>Paraméter</th>
+  <th>Lehetséges értékek</th>
+  <th>Alapérték</th>
+  <th>Jelentése</th>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>draw-overlay</td>
+  <td>true, false</td>
+  <td>false</td>
+  <td>Igaz (true) érték esetén a feldolgozott képre lesz rajzolva a szűrők és a keresés eredménye, illetve
+a többi beállításhoz szükséges információ. Ezt a beállítás elvégzése után ki lehet kapcsolni.</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>frame-width</td>
+  <td>0.1 - 1.0</td>
+  <td>0.9</td>
+  <td>A feldolgozási terület<a href="#note_aoi"><sup>1</sup></a> szélessége a teljes szélességhez viszonyítva.</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>frame-height</td>
+  <td>0.1 - 1.0</td>
+  <td>0.1</td>
+  <td>A feldolgozási terület<a href="#note_aoi"><sup>1</sup></a> magassága a teljes magassághoz viszonyítva.</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>frame-border</td>
+  <td>0.1 - 1.0</td>
+  <td>1.0</td>
+  <td>A feldolgozási területet<a href="#note_aoi"><sup>1</sup></a> szűkíthetjük tovább ezzel a paraméterrel.
+A tárgy határvonalának keresése a <code>frame-width</code>-el megadott szélesség két szélétől befelé történik legfeljebb <code>frame-border</code>
+távolságig, ahol <code>frame-border</code> a <code>frame-width</code>-el adott szélességhez képest értendő, azaz pl. 1.0 esetén balról-jobbra
+és jobbról-balra is a teljes szélességben keresünk, 0.5 esetén csak a kép középvonaláig, stb. (Tehát feltételezzük,
+hogy a tárgy a kamera képének közepét elfoglalja.)</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>median-kernel-size</td>
+  <td>0,3,5</td>
+  <td>0</td>
+  <td>Az alkalmazott medián szűrő mérete: 0 = kikapcsolva, 3 = 3x3, 5 = 5x5. Só-bors típusú zaj csökkentésére való,
+de gyenge fényviszonyok között készült felvételen is csökkenti a zajt.</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>conv-kernel</td>
+  <td>0 vagy 9 vagy 25 db egész érték</td>
+  <td>üres</td>
+  <td>Az alkalmazott konvolúciós szűrő (egész) együtthatói. A normalizációs tényezőt a <code>conv-kernel-sum</code> adja meg.</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>conv-kernel-sum</td>
+  <td>pozitív egész érték</td>
+  <td>nincs</td>
+  <td>Az alkalmazott konvolúciós szűrő normalizációs tényezője. (Ezzel a számmal osztunk a konvolúció után.)</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>threshold</td>
+  <td>0-255</td>
+  <td>0</td>
+  <td>A bináris küszöböléshez használt küszöbérték: 0 = küszöbölés kikapcsolva.</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>stripe-height</td>
+  <td>1-11 közötti páratlan egész</td>
+  <td>1</td>
+  <td>Ennyi egymás alatti vízszintes sorban keresi a program a tárgy szélét a küszöbölés után a feldolgozási
+  terület<a href="#note_aoi"><sup>1</sup></a> közepén. A végeredmény az egyes sorokban mért értékek mediánja lesz.</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>histogram-region</td>
+  <td>left, right, overlay, none</td>
+  <td>none</td>
+  <td>Hisztogram számítása és megjelenítése az itt kijelölt tartomány alapján:
+none = nincs, left = bal oldal, right = jobb oldal, overlay = a teljes feldolgozási terület.</td>
+</tr>
+<tr>
+  <td>Filter</td>
+  <td>dark-object</td>
+  <td>true, false</td>
+  <td>false</td>
+  <td>Igaz (true) érték esetén a keresett tárgy sötétebb a háttérnél, különben világosabb.
+Azt határozza meg, hogy az algoritmus a küszöbölés után az első fehér, vagy fekete pixelt keresi-e.</td>
+</tr>
+<tr>
+  <td>Serial</td>
+  <td>device-file</td>
+  <td>Elérési útvonal</td>
+  <td>/dev/ttyUSB0</td>
+  <td>A soros portot azonosító útvonal. Windows alatt <code>\\\\.\\COM1</code>, <code>\\\\.\\COM2</code>, stb. alakú, Linux alatt
+<code>/dev/ttyS0</code>, <code>/dev/ttyS1</code>, stb. alakú ha van beépített soros port, illetve <code>/dev/ttyUSB0</code>, <code>/dev/ttyUSB1</code>, stb. alakú
+USB-RS-232 átalakító használata esetén.</td>
+</tr>
+<tr>
+  <td>Serial</td>
+  <td>baud-rate</td>
+  <td>50-115200</td>
+  <td>19200</td>
+  <td>Soros vonal sebessége.</td>
+</tr>
+<tr>
+  <td>Serial</td>
+  <td>parity</td>
+  <td>even, odd, none</td>
+  <td>even</td>
+  <td>Soros vonal paritása: even = páros, odd = páratlan, none = nincs.</td>
+</tr>
+<tr>
+  <td>Serial</td>
+  <td>data-bits</td>
+  <td>7-8</td>
+  <td>8</td>
+  <td>Soros vonal adatbitek száma.</td>
+</tr>
+<tr>
+  <td>Serial</td>
+  <td>stop-bits</td>
+  <td>1-2</td>
+  <td>1</td>
+  <td>Soros vonal stopbitek száma.</td>
+</tr>
+<tr>
+  <td>Application</td>
+  <td>output</td>
+  <td>none, stdout, serial</td>
+  <td>none</td>
+  <td>A program kimenetének kiválasztása: none = nincs, stdout = konzol (teszteléshez), serial = soros vonal.</td>
+</tr>
+<tr>
+  <td>Application</td>
+  <td>modbus-slave-address</td>
+  <td>0-247</td>
+  <td>1</td>
+  <td>Soros vonali kimenet használata esetén a Modbus eszköz (PLC) címe.</td>
+</tr>
+<tr>
+  <td>Application</td>
+  <td>modbus-register-address</td>
+  <td>0-9999</td>
+  <td>4000</td>
+  <td>Soros vonali kimenet használata esetén a mérési eredmény erre a címre lesz küldve,
+a program állapota<a href="#note_status_codes"><sup>2</sup></a> pedig a következő címre. (Ennek a címnek a leképezése a konkrét PLC-beli regiszterre
+a PLC dokumentációjában található.)</td>
+</tr>
+</table>
+</p>
+
+<p>
+Megjegyzések
+<ol>
+<li id="note_aoi">
+A feldolgozási terület az a terület, ahol végrehajtjuk az algoritmusokat. Ezek eredménye alapján a küszöbölés
+előtt kiszámítjuk a hisztogramot.
+</li>
+<li id="note_status_codes">
+Lehetséges állapotok:
+<table border="1" cellspacing="0" cellpadding="2">
+<tr>
+  <th>Kód</th>
+  <th>Jelentése</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td>Nem történt hiba, az algoritmus megtalálta a képen a tárgyat.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Az algoritmus nem találta meg a képen a tárgyat.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Nincs kapcsolat a kamerával.</td>
+</tr>
+</table>
+</li>
+</ol>
+</p>
+
+<h1>Támogatás</h1>
+
+<p>
+Fejlesztő: <b>Szendrő Balázs &lt;peppincsoda@gmail.com&gt;</b>
+</p>
+
+</body>
+</html>
