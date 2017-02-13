@@ -2,29 +2,35 @@
 INSTALLATION
 ------------
 
+Build
+~~~~~
+
+pi@rpi ~/work/sf_basler/grabc $ make
+
 Copy service script to the system directory
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-$ sudo cp grabc.sh /etc/init.d/grabc
-$ sudo chmod +x /etc/init.d/grabc
+pi@rpi ~/work/sf_basler/grabc $ sudo cp grabc.sh /etc/init.d/grabc
+pi@rpi ~/work/sf_basler/grabc $ sudo chmod +x /etc/init.d/grabc
 
 Start and test your service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-$ sudo service grabc start
-$ sudo service grabc stop
+pi@rpi ~/work/sf_basler/grabc $ sudo service grabc start
+pi@rpi ~/work/sf_basler/grabc $ tail -f logs/grabc.log
+pi@rpi ~/work/sf_basler/grabc $ sudo service grabc stop
 
 Install service to be run at boot-time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-$ sudo update-rc.d grabc defaults
+pi@rpi ~/work/sf_basler/grabc $ sudo update-rc.d grabc defaults
 
 Remove service
 ~~~~~~~~~~~~~~
 
-$ sudo update-rc.d -f grabc remove
+pi@rpi ~/work/sf_basler/grabc $ sudo update-rc.d -f grabc remove
 
 Turn on core dumps for the user running the service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-$ ulimit -c unlimited
+pi@rpi ~/work/sf_basler/grabc $ ulimit -c unlimited

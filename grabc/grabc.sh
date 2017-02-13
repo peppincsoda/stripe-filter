@@ -12,13 +12,12 @@ DESC="grabc image processing service"
 NAME=grabc
 WORKDIR=/home/pi/work/sf_basler/grabc
 USER=pi
-LOGFILE=$WORKDIR/logs/grabc.log
+LOGDIR=$WORKDIR/logs
+LOGFILE=$LOGDIR/grabc.log
 DAEMON=$WORKDIR/$NAME
 DAEMON_ARGS="$WORKDIR/settings.ini"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
-
-export LD_LIBRARY_PATH=$WORKDIR/../sfcore:$WORKDIR/../sfio
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -43,6 +42,12 @@ do_start()
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
+	
+	# Create logs directory if it does not exist
+	mkdir -p $LOGDIR
+	# Set library path
+	export LD_LIBRARY_PATH=$WORKDIR/../sfcore:$WORKDIR/../sfio
+	# Start the service
 	start-stop-daemon --start --quiet --chuid $USER --chdir $WORKDIR \
 		--make-pidfile --pidfile $PIDFILE --background \
 		--startas /bin/bash -- -c "exec $DAEMON $DAEMON_ARGS > $LOGFILE 2>&1"

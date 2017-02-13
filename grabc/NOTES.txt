@@ -12,7 +12,3 @@ TODO
   hogy ne tegye? Vagy egy mentett user set-et (aminek a neve a settings-ben van) betoltetunk a programmal?
 
 + Tesztprogramot kesziteni, hogy lehessen plc regiszterekbe irni soros vonalon keresztul, egy file irja le az inputot
-
-+ sf_memory include mindenhol elso helyen kell szerepeljen
-
-+ doksiban es INSTALL.txt-ben legyenek eleresi utak a $-k elott
