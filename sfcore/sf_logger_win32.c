@@ -1,5 +1,5 @@
-#include <sfcore/sf_logger.h>
 #include <sfcore/sf_memory.h>
+#include <sfcore/sf_logger.h>
 
 #include <Windows.h>
 
