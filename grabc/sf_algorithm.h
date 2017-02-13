@@ -1,7 +1,7 @@
 #ifndef _SF_ALGORITHM_H_
 #define _SF_ALGORITHM_H_
 
-#include "sf_bool.h"
+#include <sfcore.h>
 
 #include <stdint.h>
 

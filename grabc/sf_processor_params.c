@@ -1,6 +1,4 @@
 #include "sf_processor_params.h"
-#include "sf_memory.h"
-#include "sf_string.h"
 
 bool
 sf_process_region_from_str (const char *str, SfProcessRegion *region)

@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="sf_file_monitor.c" />
+    <ClCompile Include="sf_file_win32.c" />
+    <ClCompile Include="sf_glib_key_file.c" />
+    <ClCompile Include="sf_glib_memory.c" />
+    <ClCompile Include="sf_init_status.c" />
+    <ClCompile Include="sf_linked_list.c" />
+    <ClCompile Include="sf_logger.c" />
+    <ClCompile Include="sf_logger_win32.c" />
+    <ClCompile Include="sf_memory.c" />
+    <ClCompile Include="sf_thread_win32.c" />
+    <ClCompile Include="sf_time_win32.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{1c7f5d5a-ddc2-47ff-a8ea-f3050443f3a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\sfcore">
+      <UniqueIdentifier>{e9270f23-07d1-4293-b654-9016b937fd37}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\sfcore\sf_bool.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_file.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_file_monitor.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_glib_key_file.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_glib_memory.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_init_status.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_linked_list.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_logger.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_memory.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_string.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_thread.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_time.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfcore\sf_core_header.h">
+      <Filter>include\sfcore</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

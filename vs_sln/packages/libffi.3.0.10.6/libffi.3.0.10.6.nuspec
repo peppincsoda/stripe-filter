@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>libffi</id>
+    <version>3.0.10.6</version>
+    <title>libffi</title>
+    <authors>Anthony Green,  Jon Beniston,  Bo Thorsen,  libffi contributors</authors>
+    <owners>Anthony Green,  Jon Beniston,  Bo Thorsen,  libffi contributors</owners>
+    <licenseUrl>https://github.com/coapp-packages/libffi/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://github.com/coapp-packages/libffi</projectUrl>
+    <iconUrl>http://icon_url_here_or_delete_this_line/</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>libffi (Foreign Function Interface) is a library that allows software to call any function whose interface is known at runtime.
+Homepage: http://sourceware.org/libffi/</description>
+    <summary>libffi (Foreign Function Interface) is a library that allows software to call any function whose interface is known at runtime.</summary>
+    <releaseNotes>Release of libffi 3.0.10 libraries.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>libffi foreign function interface native CoApp nativepackage</tags>
+    <dependencies>
+      <dependency id="libffi.redist" version="3.0.10.6" />
+    </dependencies>
+  </metadata>
+</package>

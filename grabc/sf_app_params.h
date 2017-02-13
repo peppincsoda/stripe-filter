@@ -1,7 +1,7 @@
 #ifndef _SF_APP_PARAMS_H_
 #define _SF_APP_PARAMS_H_
 
-#include "sf_bool.h"
+#include <sfcore.h>
 #include <stdint.h>
 
 typedef enum _SfAppOutput SfAppOutput;

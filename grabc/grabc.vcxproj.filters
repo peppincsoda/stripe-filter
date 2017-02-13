@@ -3,52 +3,21 @@
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="sf_camera.c" />
-    <ClCompile Include="sf_logger.c" />
     <ClCompile Include="sf_processor_params.c" />
     <ClCompile Include="sf_processor_params_glib.c" />
-    <ClCompile Include="sf_serial_params.c" />
-    <ClCompile Include="sf_glib_key_file.c" />
     <ClCompile Include="sf_processor.c" />
     <ClCompile Include="sf_algorithm.c" />
-    <ClCompile Include="sf_serial_params_glib.c" />
-    <ClCompile Include="sf_glib_memory.c" />
-    <ClCompile Include="sf_file_monitor.c" />
-    <ClCompile Include="sf_linked_list.c" />
-    <ClCompile Include="sf_memory.c" />
-    <ClCompile Include="sf_logger_win32.c" />
-    <ClCompile Include="sf_time_win32.c" />
-    <ClCompile Include="sf_file_win32.c" />
-    <ClCompile Include="sf_serial_win32.c" />
     <ClCompile Include="sf_app_params.c" />
     <ClCompile Include="sf_app_params_glib.c" />
-    <ClCompile Include="sf_thread_win32.c" />
-    <ClCompile Include="sf_modbus.c" />
-    <ClCompile Include="sf_init_status.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sf_camera.h" />
-    <ClInclude Include="sf_logger.h" />
-    <ClInclude Include="sf_memory.h" />
     <ClInclude Include="sf_processor_params.h" />
     <ClInclude Include="sf_processor_params_glib.h" />
-    <ClInclude Include="sf_bool.h" />
     <ClInclude Include="sf_processor.h" />
-    <ClInclude Include="sf_serial_params.h" />
-    <ClInclude Include="sf_serial.h" />
-    <ClInclude Include="sf_glib_key_file.h" />
     <ClInclude Include="sf_algorithm.h" />
-    <ClInclude Include="sf_serial_params_glib.h" />
-    <ClInclude Include="sf_glib_memory.h" />
-    <ClInclude Include="sf_file_monitor.h" />
-    <ClInclude Include="sf_linked_list.h" />
-    <ClInclude Include="sf_time.h" />
-    <ClInclude Include="sf_file.h" />
-    <ClInclude Include="sf_string.h" />
     <ClInclude Include="sf_app_params.h" />
     <ClInclude Include="sf_app_params_glib.h" />
-    <ClInclude Include="sf_thread.h" />
-    <ClInclude Include="sf_modbus.h" />
-    <ClInclude Include="sf_init_status.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

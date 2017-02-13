@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{2e6c7d75-52d4-4627-ba6b-2600617e2ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\sfio">
+      <UniqueIdentifier>{9ea5ece2-71d5-4dd4-bf92-722a74cf4b28}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\sfio\sf_io_header.h">
+      <Filter>include\sfio</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfio\sf_modbus.h">
+      <Filter>include\sfio</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfio\sf_serial.h">
+      <Filter>include\sfio</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfio\sf_serial_params.h">
+      <Filter>include\sfio</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfio\sf_serial_params_glib.h">
+      <Filter>include\sfio</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sfio.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sf_modbus.c" />
+    <ClCompile Include="sf_serial_params.c" />
+    <ClCompile Include="sf_serial_params_glib.c" />
+    <ClCompile Include="sf_serial_win32.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

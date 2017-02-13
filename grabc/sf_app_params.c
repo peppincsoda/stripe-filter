@@ -1,6 +1,4 @@
 #include "sf_app_params.h"
-#include "sf_memory.h"
-#include "sf_string.h"
 
 bool
 sf_app_output_from_str (const char *str, SfAppOutput *output)

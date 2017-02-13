@@ -1,9 +1,4 @@
-#include "sf_memory.h"
 #include "sf_processor_params_glib.h"
-
-#include "sf_glib_key_file.h"
-#include "sf_logger.h"
-#include "sf_glib_memory.h"
 
 void
 sf_processor_params_load_from_g_key_file (SfProcessorParams *p,

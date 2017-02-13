@@ -1,5 +1,6 @@
 #include "sf_processor.h"
-#include "sf_memory.h"
+
+#include <sfcore.h>
 
 #include <memory.h>
 #include <assert.h>

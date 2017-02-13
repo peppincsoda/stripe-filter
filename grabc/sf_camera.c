@@ -1,6 +1,6 @@
 #include "sf_camera.h"
-#include "sf_logger.h"
-#include "sf_memory.h"
+
+#include <sfcore.h>
 
 #include <pylonc/PylonC.h>
 

@@ -33,12 +33,24 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="..\vs_sln\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\vs_sln\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" />
+    <Import Project="..\vs_sln\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\vs_sln\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
+    <Import Project="..\vs_sln\packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets" Condition="Exists('..\vs_sln\packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets')" />
+    <Import Project="..\vs_sln\packages\libiconv.1.14.0.11\build\native\libiconv.targets" Condition="Exists('..\vs_sln\packages\libiconv.1.14.0.11\build\native\libiconv.targets')" />
+    <Import Project="..\vs_sln\packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets" Condition="Exists('..\vs_sln\packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets')" />
+    <Import Project="..\vs_sln\packages\libintl.0.18.2.10\build\native\libintl.targets" Condition="Exists('..\vs_sln\packages\libintl.0.18.2.10\build\native\libintl.targets')" />
+    <Import Project="..\vs_sln\packages\libffi.redist.3.0.10.6\build\native\libffi.redist.targets" Condition="Exists('..\vs_sln\packages\libffi.redist.3.0.10.6\build\native\libffi.redist.targets')" />
+    <Import Project="..\vs_sln\packages\libffi.3.0.10.6\build\native\libffi.targets" Condition="Exists('..\vs_sln\packages\libffi.3.0.10.6\build\native\libffi.targets')" />
+    <Import Project="..\vs_sln\packages\glib.redist.2.36.2.11\build\native\glib.redist.targets" Condition="Exists('..\vs_sln\packages\glib.redist.2.36.2.11\build\native\glib.redist.targets')" />
+    <Import Project="..\vs_sln\packages\glib.2.36.2.11\build\native\glib.targets" Condition="Exists('..\vs_sln\packages\glib.2.36.2.11\build\native\glib.targets')" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\vs_sln\grabc_common.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\vs_sln\grabc_common.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -55,13 +67,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(PYLON_DEV_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PYLON_DEV_DIR)\include;$(ProjectDir)\..\sfcore\include;$(ProjectDir)\..\sfio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(PYLON_DEV_DIR)\lib\$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>PylonC_MD_VC120.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PylonC_MD_VC120.lib;sfcore_d.lib;sfio_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -74,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(PYLON_DEV_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PYLON_DEV_DIR)\include;$(ProjectDir)\..\sfcore\include;$(ProjectDir)\..\sfio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,7 +94,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(PYLON_DEV_DIR)\lib\$(PlatformName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>PylonC_MD_VC120.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PylonC_MD_VC120.lib;sfcore.lib;sfio.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -91,86 +103,21 @@
     <ClCompile Include="sf_app_params.c" />
     <ClCompile Include="sf_app_params_glib.c" />
     <ClCompile Include="sf_camera.c" />
-    <ClCompile Include="sf_modbus.c" />
-    <ClCompile Include="sf_file_monitor.c" />
-    <ClCompile Include="sf_file_win32.c" />
-    <ClCompile Include="sf_glib_key_file.c" />
-    <ClCompile Include="sf_glib_memory.c" />
-    <ClCompile Include="sf_linked_list.c" />
-    <ClCompile Include="sf_logger.c" />
-    <ClCompile Include="sf_logger_win32.c" />
-    <ClCompile Include="sf_memory.c" />
     <ClCompile Include="sf_processor.c" />
     <ClCompile Include="sf_processor_params.c" />
     <ClCompile Include="sf_processor_params_glib.c" />
-    <ClCompile Include="sf_init_status.c" />
-    <ClCompile Include="sf_serial_win32.c" />
-    <ClCompile Include="sf_serial_params.c" />
-    <ClCompile Include="sf_serial_params_glib.c" />
-    <ClCompile Include="sf_thread_win32.c" />
-    <ClCompile Include="sf_time_win32.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sf_algorithm.h" />
     <ClInclude Include="sf_app_params.h" />
     <ClInclude Include="sf_app_params_glib.h" />
-    <ClInclude Include="sf_bool.h" />
     <ClInclude Include="sf_camera.h" />
-    <ClInclude Include="sf_modbus.h" />
-    <ClInclude Include="sf_file.h" />
-    <ClInclude Include="sf_file_monitor.h" />
-    <ClInclude Include="sf_glib_key_file.h" />
-    <ClInclude Include="sf_glib_memory.h" />
-    <ClInclude Include="sf_linked_list.h" />
-    <ClInclude Include="sf_logger.h" />
-    <ClInclude Include="sf_memory.h" />
     <ClInclude Include="sf_processor.h" />
     <ClInclude Include="sf_processor_params.h" />
     <ClInclude Include="sf_processor_params_glib.h" />
-    <ClInclude Include="sf_init_status.h" />
-    <ClInclude Include="sf_serial.h" />
-    <ClInclude Include="sf_serial_params.h" />
-    <ClInclude Include="sf_serial_params_glib.h" />
-    <ClInclude Include="sf_string.h" />
-    <ClInclude Include="sf_thread.h" />
-    <ClInclude Include="sf_time.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\zlib.redist.1.2.8.7\build\native\zlib.redist.targets" Condition="Exists('packages\zlib.redist.1.2.8.7\build\native\zlib.redist.targets')" />
-    <Import Project="packages\zlib.1.2.7.30\build\native\zlib.targets" Condition="Exists('packages\zlib.1.2.7.30\build\native\zlib.targets')" />
-    <Import Project="packages\glib.redist.2.36.2.11\build\native\glib.redist.targets" Condition="Exists('packages\glib.redist.2.36.2.11\build\native\glib.redist.targets')" />
-    <Import Project="packages\glib.2.36.2.11\build\native\glib.targets" Condition="Exists('packages\glib.2.36.2.11\build\native\glib.targets')" />
-    <Import Project="packages\libiconv.redist.1.14.0.10\build\native\libiconv.redist.targets" Condition="Exists('packages\libiconv.redist.1.14.0.10\build\native\libiconv.redist.targets')" />
-    <Import Project="packages\libiconv.1.14.0.10\build\native\libiconv.targets" Condition="Exists('packages\libiconv.1.14.0.10\build\native\libiconv.targets')" />
-    <Import Project="packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets" Condition="Exists('packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets')" />
-    <Import Project="packages\libintl.0.18.2.10\build\native\libintl.targets" Condition="Exists('packages\libintl.0.18.2.10\build\native\libintl.targets')" />
-    <Import Project="packages\libffi.redist.3.2.1.1\build\native\libffi.redist.targets" Condition="Exists('packages\libffi.redist.3.2.1.1\build\native\libffi.redist.targets')" />
-    <Import Project="packages\libffi.3.2.1.1\build\native\libffi.targets" Condition="Exists('packages\libffi.3.2.1.1\build\native\libffi.targets')" />
-    <Import Project="packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" />
-    <Import Project="packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
-    <Import Project="packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets" Condition="Exists('packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets')" />
-    <Import Project="packages\libiconv.1.14.0.11\build\native\libiconv.targets" Condition="Exists('packages\libiconv.1.14.0.11\build\native\libiconv.targets')" />
-    <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\zlib.redist.1.2.8.7\build\native\zlib.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\zlib.redist.1.2.8.7\build\native\zlib.redist.targets'))" />
-    <Error Condition="!Exists('packages\zlib.1.2.7.30\build\native\zlib.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\zlib.1.2.7.30\build\native\zlib.targets'))" />
-    <Error Condition="!Exists('packages\glib.redist.2.36.2.11\build\native\glib.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\glib.redist.2.36.2.11\build\native\glib.redist.targets'))" />
-    <Error Condition="!Exists('packages\glib.2.36.2.11\build\native\glib.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\glib.2.36.2.11\build\native\glib.targets'))" />
-    <Error Condition="!Exists('packages\libiconv.redist.1.14.0.10\build\native\libiconv.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.redist.1.14.0.10\build\native\libiconv.redist.targets'))" />
-    <Error Condition="!Exists('packages\libiconv.1.14.0.10\build\native\libiconv.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.1.14.0.10\build\native\libiconv.targets'))" />
-    <Error Condition="!Exists('packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets'))" />
-    <Error Condition="!Exists('packages\libintl.0.18.2.10\build\native\libintl.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libintl.0.18.2.10\build\native\libintl.targets'))" />
-    <Error Condition="!Exists('packages\libffi.redist.3.2.1.1\build\native\libffi.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libffi.redist.3.2.1.1\build\native\libffi.redist.targets'))" />
-    <Error Condition="!Exists('packages\libffi.3.2.1.1\build\native\libffi.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libffi.3.2.1.1\build\native\libffi.targets'))" />
-  </Target>
 </Project>

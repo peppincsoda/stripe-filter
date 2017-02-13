@@ -1,17 +1,9 @@
-#include "sf_memory.h"
+#include <sfio.h>
 
-#include "sf_logger.h"
 #include "sf_camera.h"
 #include "sf_processor.h"
-#include "sf_serial.h"
-#include "sf_file_monitor.h"
-#include "sf_init_status.h"
-#include "sf_thread.h"
-#include "sf_modbus.h"
-#include "sf_time.h"
 
 #include "sf_processor_params_glib.h"
-#include "sf_serial_params_glib.h"
 #include "sf_app_params_glib.h"
 
 #include <glib.h>

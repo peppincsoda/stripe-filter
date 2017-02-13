@@ -6,8 +6,6 @@
 #include <string.h>
 #include <assert.h>
 
-#include "sf_memory.h"
-
 static int *
 partition (int *first, int *last, int pivot)
 {

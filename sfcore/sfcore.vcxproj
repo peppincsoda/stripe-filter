@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{152C5087-F5BB-4594-AE7A-FD85586422B1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>sfcore</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\vs_sln\grabc_common.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\vs_sln\grabc_common.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SFCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SFCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="sf_file_monitor.c" />
+    <ClCompile Include="sf_file_win32.c" />
+    <ClCompile Include="sf_glib_key_file.c" />
+    <ClCompile Include="sf_glib_memory.c" />
+    <ClCompile Include="sf_init_status.c" />
+    <ClCompile Include="sf_linked_list.c" />
+    <ClCompile Include="sf_logger.c" />
+    <ClCompile Include="sf_logger_win32.c" />
+    <ClCompile Include="sf_memory.c" />
+    <ClCompile Include="sf_thread_win32.c" />
+    <ClCompile Include="sf_time_win32.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\sfcore.h" />
+    <ClInclude Include="include\sfcore\sf_bool.h" />
+    <ClInclude Include="include\sfcore\sf_core_header.h" />
+    <ClInclude Include="include\sfcore\sf_file.h" />
+    <ClInclude Include="include\sfcore\sf_file_monitor.h" />
+    <ClInclude Include="include\sfcore\sf_glib_key_file.h" />
+    <ClInclude Include="include\sfcore\sf_glib_memory.h" />
+    <ClInclude Include="include\sfcore\sf_init_status.h" />
+    <ClInclude Include="include\sfcore\sf_linked_list.h" />
+    <ClInclude Include="include\sfcore\sf_logger.h" />
+    <ClInclude Include="include\sfcore\sf_memory.h" />
+    <ClInclude Include="include\sfcore\sf_string.h" />
+    <ClInclude Include="include\sfcore\sf_thread.h" />
+    <ClInclude Include="include\sfcore\sf_time.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\vs_sln\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\vs_sln\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" />
+    <Import Project="..\vs_sln\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\vs_sln\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
+    <Import Project="..\vs_sln\packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets" Condition="Exists('..\vs_sln\packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets')" />
+    <Import Project="..\vs_sln\packages\libiconv.1.14.0.11\build\native\libiconv.targets" Condition="Exists('..\vs_sln\packages\libiconv.1.14.0.11\build\native\libiconv.targets')" />
+    <Import Project="..\vs_sln\packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets" Condition="Exists('..\vs_sln\packages\libintl.redist.0.18.2.10\build\native\libintl.redist.targets')" />
+    <Import Project="..\vs_sln\packages\libintl.0.18.2.10\build\native\libintl.targets" Condition="Exists('..\vs_sln\packages\libintl.0.18.2.10\build\native\libintl.targets')" />
+    <Import Project="..\vs_sln\packages\libffi.redist.3.0.10.6\build\native\libffi.redist.targets" Condition="Exists('..\vs_sln\packages\libffi.redist.3.0.10.6\build\native\libffi.redist.targets')" />
+    <Import Project="..\vs_sln\packages\libffi.3.0.10.6\build\native\libffi.targets" Condition="Exists('..\vs_sln\packages\libffi.3.0.10.6\build\native\libffi.targets')" />
+    <Import Project="..\vs_sln\packages\glib.redist.2.36.2.11\build\native\glib.redist.targets" Condition="Exists('..\vs_sln\packages\glib.redist.2.36.2.11\build\native\glib.redist.targets')" />
+    <Import Project="..\vs_sln\packages\glib.2.36.2.11\build\native\glib.targets" Condition="Exists('..\vs_sln\packages\glib.2.36.2.11\build\native\glib.targets')" />
+  </ImportGroup>
+</Project>

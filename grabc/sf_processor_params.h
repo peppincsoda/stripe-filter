@@ -1,7 +1,7 @@
 #ifndef _SF_PROCESSOR_PARAMS_H_
 #define _SF_PROCESSOR_PARAMS_H_
 
-#include "sf_bool.h"
+#include <sfcore.h>
 
 typedef enum _SfProcessRegion SfProcessRegion;
 

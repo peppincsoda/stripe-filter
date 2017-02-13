@@ -1,8 +1,4 @@
-#include "sf_memory.h"
 #include "sf_app_params_glib.h"
-
-#include "sf_glib_key_file.h"
-#include "sf_logger.h"
 
 void
 sf_app_params_load_from_g_key_file (SfAppParams *p,
