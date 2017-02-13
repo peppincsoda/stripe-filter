@@ -19,6 +19,11 @@ Install service to be run at boot-time
 
 $ sudo update-rc.d grabc defaults
 
+Remove service
+~~~~~~~~~~~~~~
+
+$ sudo update-rc.d -f grabc remove
+
 Turn on core dumps for the user running the service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -1,5 +1,5 @@
-#include "sf_file.h"
-#include "sf_logger.h"
+#include <sfcore/sf_file.h>
+#include <sfcore/sf_logger.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>

@@ -10,13 +10,15 @@
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 DESC="grabc image processing service"
 NAME=grabc
-WORKDIR=/home/pi/work/stripefilter_basler
+WORKDIR=/home/pi/work/sf_basler/grabc
 USER=pi
 LOGFILE=$WORKDIR/logs/grabc.log
 DAEMON=$WORKDIR/$NAME
 DAEMON_ARGS="$WORKDIR/settings.ini"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
+
+export LD_LIBRARY_PATH=$WORKDIR/../sfcore:$WORKDIR/../sfio
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0

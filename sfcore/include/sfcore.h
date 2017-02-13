@@ -5,6 +5,7 @@
 
 #include <sfcore/sf_memory.h>
 
+#include <sfcore/sf_algorithm.h>
 #include <sfcore/sf_bool.h>
 #include <sfcore/sf_file.h>
 #include <sfcore/sf_file_monitor.h>

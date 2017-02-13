@@ -99,7 +99,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
-    <ClCompile Include="sf_algorithm.c" />
     <ClCompile Include="sf_app_params.c" />
     <ClCompile Include="sf_app_params_glib.c" />
     <ClCompile Include="sf_camera.c" />
@@ -108,7 +107,6 @@
     <ClCompile Include="sf_processor_params_glib.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sf_algorithm.h" />
     <ClInclude Include="sf_app_params.h" />
     <ClInclude Include="sf_app_params_glib.h" />
     <ClInclude Include="sf_camera.h" />

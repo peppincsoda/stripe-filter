@@ -1,4 +1,4 @@
-#include "sf_thread.h"
+#include <sfcore/sf_thread.h>
 
 #include <unistd.h>
 

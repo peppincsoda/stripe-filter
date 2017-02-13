@@ -6,7 +6,6 @@
     <ClCompile Include="sf_processor_params.c" />
     <ClCompile Include="sf_processor_params_glib.c" />
     <ClCompile Include="sf_processor.c" />
-    <ClCompile Include="sf_algorithm.c" />
     <ClCompile Include="sf_app_params.c" />
     <ClCompile Include="sf_app_params_glib.c" />
   </ItemGroup>
@@ -15,7 +14,6 @@
     <ClInclude Include="sf_processor_params.h" />
     <ClInclude Include="sf_processor_params_glib.h" />
     <ClInclude Include="sf_processor.h" />
-    <ClInclude Include="sf_algorithm.h" />
     <ClInclude Include="sf_app_params.h" />
     <ClInclude Include="sf_app_params_glib.h" />
   </ItemGroup>

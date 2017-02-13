@@ -1,7 +1,4 @@
-#include "sf_serial.h"
-#include "sf_memory.h"
-#include "sf_logger.h"
-#include "sf_algorithm.h"
+#include <sfio/sf_serial.h>
 
 #include <stdio.h>
 #include <assert.h>

@@ -1,7 +1,7 @@
 #ifndef _SF_PROCESSOR_H_
 #define _SF_PROCESSOR_H_
 
-#include "sf_algorithm.h"
+#include <sfcore.h>
 #include "sf_processor_params.h"
 
 typedef struct _SfProcessor SfProcessor;

@@ -1,4 +1,5 @@
-#include "sf_algorithm.h"
+#include <sfcore/sf_memory.h>
+#include <sfcore/sf_algorithm.h>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -116,6 +117,7 @@ qselect (int *first, int *last, int *n)
 //  }
 //}
 
+SF_CORE_API
 void
 sf_filter_conv (SfFilterParams *p,
                 const int *kernel,
@@ -131,6 +133,7 @@ sf_filter_conv (SfFilterParams *p,
   }
 }
 
+SF_CORE_API
 void
 sf_filter_conv3 (SfFilterParams *p,
                  const int *kernel,
@@ -184,6 +187,7 @@ sf_filter_conv3 (SfFilterParams *p,
   }
 }
 
+SF_CORE_API
 void
 sf_filter_conv5 (SfFilterParams *p,
                  const int *kernel,
@@ -283,6 +287,7 @@ sf_filter_find_color (const uint8_t *src_first,
   return -1;
 }
 
+SF_CORE_API
 int
 sf_filter_find_singleline (SfFilterInParams *p,
                            uint8_t color,
@@ -298,6 +303,7 @@ sf_filter_find_singleline (SfFilterInParams *p,
       p->src + p->width, color);
 }
 
+SF_CORE_API
 int
 sf_filter_find_multiline (SfFilterInParams *p,
                           uint8_t color,
@@ -342,6 +348,7 @@ sf_filter_find_multiline (SfFilterInParams *p,
   return ret;
 }
 
+SF_CORE_API
 void
 sf_filter_compute_gaussian_kernel (double sigma,
                                    int k_size,
@@ -435,6 +442,7 @@ sf_filter_compute_gaussian_kernel (double sigma,
 //  sf_free (arr);
 //}
 
+SF_CORE_API
 void
 sf_filter_median (SfFilterParams *p,
                   int k_size)
@@ -453,6 +461,7 @@ sf_filter_median (SfFilterParams *p,
 #define PIX_SWAP(a, b) { uint8_t temp = (a); (a) = (b); (b) = temp; }
 #define PIX_SORT(a, b) { if ((a) > (b)) PIX_SWAP((a),(b)); }
 
+SF_CORE_API
 void
 sf_filter_median3 (SfFilterParams *p)
 {
@@ -502,6 +511,7 @@ sf_filter_median3 (SfFilterParams *p)
   }
 }
 
+SF_CORE_API
 void
 sf_filter_median5 (SfFilterParams *p)
 {
@@ -598,6 +608,7 @@ sf_filter_median5 (SfFilterParams *p)
 #undef PIX_SORT
 #undef PIX_SWAP
 
+SF_CORE_API
 void
 sf_filter_threshold (SfFilterParams *p,
                      int thr,
@@ -619,6 +630,7 @@ sf_filter_threshold (SfFilterParams *p,
   }
 }
 
+SF_CORE_API
 void
 sf_filter_copy (SfFilterParams *p)
 {
@@ -637,6 +649,7 @@ sf_filter_copy (SfFilterParams *p)
   }
 }
 
+SF_CORE_API
 void
 sf_filter_compute_histogram (SfFilterInParams *p,
                              int *histogram,
@@ -655,6 +668,7 @@ sf_filter_compute_histogram (SfFilterInParams *p,
   }
 }
 
+SF_CORE_API
 int
 sf_filter_find_otsu_threshold (const int *histogram,
                                int h_len,
@@ -702,6 +716,7 @@ sf_filter_find_otsu_threshold (const int *histogram,
 /*
  * A Bresenham implementation from www.falloutsoftware.com
  */
+SF_CORE_API
 void
 sf_filter_draw_line (SfFilterOutParams *params,
                      int x0, int y0,
@@ -766,6 +781,7 @@ sf_filter_draw_line (SfFilterOutParams *params,
   }
 }
 
+SF_CORE_API
 void
 sf_filter_draw_histogram (SfFilterOutParams *params,
                           const int *histogram,
@@ -815,6 +831,7 @@ sf_filter_draw_histogram (SfFilterOutParams *params,
     *dest++ = fg_color; /* frame */
 }
 
+SF_CORE_API
 void
 sf_filter_draw_histogram_horizontal (SfFilterOutParams *params,
                                      const int *histogram,
@@ -860,6 +877,7 @@ sf_filter_draw_histogram_horizontal (SfFilterOutParams *params,
   sf_filter_draw_line (params, x + threshold + 1, y + 1, x + threshold + 1, y + height - 1, th_color);
 }
 
+SF_CORE_API
 int
 sf_binary_search (int *arr, int len, int item)
 {
