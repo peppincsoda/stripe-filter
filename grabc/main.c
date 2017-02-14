@@ -212,18 +212,21 @@ sf_app_write_output (SfApp *app, SfAppOutputData *output_data)
   if (app->app_params->output == SfAppOutput_Serial) {
     uint16_t values[] = {(uint16_t) output_data->thickness,
                          (uint16_t) output_data->status};
-    uint8_t buffer[9 + sizeof (values)];
+    uint8_t buffer[16];
+    size_t bytes_written;
 
     /* Make sure we didn't lose data because of the conversion to 16-bit */
     assert ((int) values[0] == output_data->thickness);
     assert ((SfAppOutputStatus) values[1] == output_data->status);
 
-    sf_modbus_preset_multiple_registers (buffer,
-                                         sizeof (buffer),
-                                         app->app_params->modbus_slave_address,
-                                         app->app_params->modbus_register_address,
-                                         ARRAY_SIZE (values),
-                                         values);
+    bytes_written = sf_modbus_preset_multiple_registers (buffer,
+                                                         sizeof (buffer),
+                                                         app->app_params->modbus_slave_address,
+                                                         app->app_params->modbus_register_address,
+                                                         ARRAY_SIZE (values),
+                                                         values);
+
+    assert (bytes_written <= sizeof (buffer));
 
     if (!sf_serial_write (app->serial, buffer, sizeof (buffer)))
       return false;

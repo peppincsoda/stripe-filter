@@ -1,7 +1,5 @@
 #include <sfio/sf_modbus.h>
 
-#include <assert.h>
-
 // CRC16 algorithm from: http://www.modbustools.com/modbus_crc16.htm
 
 static const uint16_t crc16_table[] =
@@ -57,32 +55,36 @@ crc16 (const uint8_t *data, size_t len)
 }
 
 SF_IO_API
-void
+size_t
 sf_modbus_preset_single_register (uint8_t *buffer,
                                   size_t buffer_len,
                                   uint8_t slave_address,
                                   uint16_t data_address,
                                   uint16_t value)
 {
-  uint16_t crc;
+  const size_t req_len = 8;
+  
+  if (buffer != NULL && buffer_len >= req_len) {
+    uint16_t crc;
 
-  assert (buffer_len >= 8);
+    buffer[0] = slave_address;       // Slave Address
+    buffer[1] = 6;                   // Function: Preset Single Register
+    buffer[2] = data_address >> 8;   // Parameter 1: Data address
+    buffer[3] = data_address & 0xFF;
+    buffer[4] = value >> 8;          // Parameter 2: Value to set
+    buffer[5] = value & 0xFF;
 
-  buffer[0] = slave_address;       // Slave Address
-  buffer[1] = 6;                   // Function: Preset Single Register
-  buffer[2] = data_address >> 8;   // Parameter 1: Data address
-  buffer[3] = data_address & 0xFF;
-  buffer[4] = value >> 8;          // Parameter 2: Value to set
-  buffer[5] = value & 0xFF;
+    crc = crc16 (buffer, 6);
 
-  crc = crc16 (buffer, 6);
+    buffer[6] = crc >> 8;            // CRC
+    buffer[7] = crc & 0xFF;
+  }
 
-  buffer[6] = crc >> 8;            // CRC
-  buffer[7] = crc & 0xFF;
+  return req_len;
 }
 
 SF_IO_API
-void
+size_t
 sf_modbus_preset_multiple_registers (uint8_t *buffer,
                                      size_t buffer_len,
                                      uint8_t slave_address,
@@ -90,28 +92,32 @@ sf_modbus_preset_multiple_registers (uint8_t *buffer,
                                      uint16_t num_registers,
                                      uint16_t *values)
 {
-  uint16_t crc;
-  size_t len = 0;
-  int i;
+  const size_t req_len = 9 + (size_t) num_registers * 2;
 
-  assert (buffer_len >= 9 + (size_t) num_registers * 2);
+  if (buffer != NULL && buffer_len >= req_len) {
+    uint16_t crc;
+    size_t len = 0;
+    int i;
 
-  buffer[0] = slave_address;       // Slave Address
-  buffer[1] = 16;                  // Function: Preset Multiple Registers
-  buffer[2] = data_address >> 8;   // Parameter 1: Data address of first register
-  buffer[3] = data_address & 0xFF;
-  buffer[4] = num_registers >> 8;  // Parameter 2: Number of registers to write
-  buffer[5] = num_registers & 0xFF;
-  buffer[6] = num_registers * 2;   // Parameter 3: Number of data bytes to follow
+    buffer[0] = slave_address;       // Slave Address
+    buffer[1] = 16;                  // Function: Preset Multiple Registers
+    buffer[2] = data_address >> 8;   // Parameter 1: Data address of first register
+    buffer[3] = data_address & 0xFF;
+    buffer[4] = num_registers >> 8;  // Parameter 2: Number of registers to write
+    buffer[5] = num_registers & 0xFF;
+    buffer[6] = num_registers * 2;   // Parameter 3: Number of data bytes to follow
 
-  len = 7;
-  for (i = 0; i < num_registers; i++) {      // Parameter 4: Data bytes
-    buffer[len++] = values[i] >> 8;
-    buffer[len++] = values[i] & 0xFF;
+    len = 7;
+    for (i = 0; i < num_registers; i++) {      // Parameter 4: Data bytes
+      buffer[len++] = values[i] >> 8;
+      buffer[len++] = values[i] & 0xFF;
+    }
+
+    crc = crc16 (buffer, len);
+
+    buffer[len++] = crc >> 8;            // CRC
+    buffer[len++] = crc & 0xFF;
   }
 
-  crc = crc16 (buffer, len);
-
-  buffer[len++] = crc >> 8;            // CRC
-  buffer[len++] = crc & 0xFF;
+  return req_len;
 }
