@@ -122,15 +122,15 @@ parse_dec (const char **ppstr, int *result)
       const char digit = **ppstr - '0';
 
       /* Handle overflow */
-      if (!neg && *result > INT_MAX / 10 ||
-           neg && -(*result) < INT_MIN / 10)
+      if ((!neg && *result > INT_MAX / 10) ||
+           (neg && -(*result) < INT_MIN / 10))
         goto error;
 
       *result = *result * 10;
 
       /* Handle overflow */
-      if (!neg && *result > INT_MAX - digit ||
-           neg && -(*result) < INT_MIN + digit)
+      if ((!neg && *result > INT_MAX - digit) ||
+           (neg && -(*result) < INT_MIN + digit))
         goto error;
 
       *result = *result + digit;
@@ -359,7 +359,7 @@ int main (int argc, char *argv[])
   int ret = 1;
   const char *settings_path;
 
-  //test_parse_int ();
+  test_parse_int ();
 
   if (argc < 2)
     settings_path = "settings.ini";
