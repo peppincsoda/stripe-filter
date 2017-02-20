@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>modbus_player - Magyar nyelvű felhasználói dokumentáció</title>
+<style type="text/css">
+pre {
+  background-color : lightgray;
+}
+</style>
+</head>
+
+<body>
+
+<h1>A programról</h1>
+
+<p>
+A <code>grabc</code> program egy kamera képén látható cső vastagságát becsli meg, majd a becsült értéket átküldi egy PLC-nek soros vonalon Modbus RTU protokollal.
+A <code>modbus_player</code> a PLC-n futó szoftver fejlesztéséhez / teszteléséhez készült program, a szabványos bemenetéről olvasott adatokat küldi a soros vonalra Modbus RTU protokollal.
+</p>
+
+<p>
+Tehát indíthatjuk konzolból és mindig beírjuk a szükséges adatokat amikor küldeni szeretnénk,
+vagy megadhatjuk előre az adatokat egy szöveges fájlban, amelyet átirányítunk a szabványos bemenetére:
+
+<pre>
+modbus_player.exe &lt; test_input.txt
+</pre>
+
+(Külső programból is vezérelhető amely processzként elindítja a <code>modbus_player.exe</code>-t, majd írja a bemenetét.)
+</p>
+
+<h1>Beállítások</h1>
+
+<p>
+A soros port beállításait a <code>settings.ini</code> fájl Serial blokkja tartalmazza.
+A paraméterek jelentése a <code>grabc</code> dokumentációjában található.
+</p>
+
+<h1>A bemenet formátuma</h1>
+
+<p>A bemenet minden sora egyetlen Modbus üzenetet generál. Az oszlopok jelentése a következő:
+
+<ol>
+<li>késleltetés ms-ban: ennyit vár küldés előtt a program; így lehet szünetet tenni két üzenet küldése közé</li>
+<li>modbus funkció kódja: 6 - egyetlen regiszter írása, 16 - több regiszter írása</li>
+<li>modbus device address: az eszköz címe, a Xinje PLC default-ja: 1</li>
+<li>register address: melyik regisztert írja (A Xinje PLC doksijában van, hogy melyik Modbus cím melyik regiszterre képződik a PLC-ben, pl. a 4000-nek a D4000 felel meg.)</li>
+<li>number of values: hány regiszterértéket írjon (ez csak akkor kell, ha 16 volt a funkció kód)</li>
+<li>values: érték(ek) amiket írjon</li>
+</ol>
+
+Minden számérték megadható decimálisan vagy hexadecimálisan <code>0x</code> prefixszel (pl.: <code>0xff = 255</code>).
+</p>
+
+<p>
+A <code>grabc</code> két regisztert használ ahogyan a <code>test_input.txt</code> példa is mutatja.
+Az első (D4000) a mérést tartalmazza, a második (D4001) az állapotot:
+
+<table border="1" cellspacing="1" cellpadding="2">
+<tr>
+  <th>Kód</th>
+  <th>Jelentése</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td>minden rendben</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>nem detektálható a cső a képen</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>nincs kapcsolat a kamerával</td>
+</tr>
+</table>
+</p>
+
+</body>
+</html>
