@@ -77,6 +77,9 @@ sf_app_close_output (SfApp *app)
   sf_serial_close_port (app->serial);
 }
 
+/* Parses a hexadecimal number from *ppstr and stores it in result.
+   Returns true if sucessful.
+ */
 static bool
 parse_hex (const char **ppstr, int *result)
 {
@@ -108,6 +111,9 @@ error:
   return false;
 }
 
+/* Parses a decimal number from *ppstr and stores it in result.
+   Returns true if sucessful.
+ */
 static bool
 parse_dec (const char **ppstr, int *result)
 {
@@ -150,6 +156,10 @@ error:
   return false;
 }
 
+/* Parses a number from *ppstr and stores it in result.
+   The number must be between min_value and max_value (inclusive).
+   Returns true if sucessful.
+ */
 static bool
 parse_int (const char **ppstr, int *result, int min_value, int max_value)
 {
@@ -181,6 +191,9 @@ parse_int32 (const char **ppstr, int *result)
   return parse_int (ppstr, result, INT_MIN, INT_MAX);
 }
 
+/* Parser testing function.
+   This should be moved to a separate tests file.
+ */
 static void
 test_parse_int ()
 {
@@ -202,6 +215,9 @@ test_parse_int ()
   assert (!parse_int32 (&over_max_hex, &r) && r == 0);
 }
 
+/* Parse all parameters of Modbus function 6 (preset single register) and send the assembled message.
+   Parameter p is the current position in line_buffer.
+ */
 static bool
 sf_app_parse_preset_single_register (SfApp *app, const char *line_buffer, const char **p, int lineno)
 {
@@ -241,6 +257,9 @@ error:
   return false;
 }
 
+/* Parse all parameters of Modbus function 16 (preset multiple register) and send the assembled message.
+   Parameter p is the current position in line_buffer.
+ */
 static bool
 sf_app_parse_preset_multiple_registers (SfApp *app, const char *line_buffer, const char **p, int lineno)
 {
@@ -275,6 +294,7 @@ sf_app_parse_preset_multiple_registers (SfApp *app, const char *line_buffer, con
     values[i] = (uint16_t) value;
   }
 
+  /* The first call returns the buffer size required to store the message. */
   bytes_written = sf_modbus_preset_multiple_registers (NULL,
                                                        0,
                                                        (uint8_t) slave_address,
@@ -303,6 +323,8 @@ error:
   return ret;
 }
 
+/* Read the specified file and execute the requested Modbus function at each line.
+ */
 static bool
 sf_app_parse_file (FILE *file)
 {

@@ -1,0 +1,6 @@
+
+TODO
+====
+
++ When powered off, the camera loses its settings. Possibly we can store the settings in one of the user sets,
+and can request the camera to load that user set when grabc starts.
