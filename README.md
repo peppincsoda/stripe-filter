@@ -20,7 +20,6 @@ Table of contents
   * [Usage](#usage)
   * [Test application for the PLC](#test-application-for-the-plc)
     * [Input format](#input-format)
-  * [License](#license)
 
 ## Installation on Linux
 
@@ -153,7 +152,3 @@ NUMBER_OF_VALUES | Number of values to write. (This is only required if multiple
 VALUES | Value(s) to write to the register(s).
 
 Every number can be given in decimal or hexadecimal form (with a `0x` prefix).
-
-## License
-
-MIT license, see [here](LICENSE).
