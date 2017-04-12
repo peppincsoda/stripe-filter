@@ -13,9 +13,10 @@ void
 sf_linked_list_add_after (SfLinkedListItem *after_this,
                           SfLinkedListItem *item)
 {
-  item->next = after_this->next;
-  after_this->next = item;
   item->prev = after_this;
+  item->next = after_this->next;
+  after_this->next->prev = item;
+  after_this->next = item;
 }
 
 SF_CORE_API
@@ -24,6 +25,7 @@ sf_linked_list_add_before (SfLinkedListItem *before_this,
                            SfLinkedListItem *item)
 {
   item->prev = before_this->prev;
-  before_this->prev = item;
   item->next = before_this;
+  before_this->prev->next = item;
+  before_this->prev = item;
 }
